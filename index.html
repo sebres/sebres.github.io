@@ -1,0 +1,856 @@
+<!DOCTYPE HTML><html lang="en">
+<head><meta charset="UTF-8">
+<title>Persistent Password Generator :: [sebres-pwd-hasher]</title>
+<link rel="shortcut icon" href="data:image/gif;base64,R0lGODlhGAAYAKUrAMsBAcwAAM0HB84KCs4NDdAVFdEeHtMlJdQrK9QtLdQwMNU0NNg8PN1cXN9hYeFra+Nzc+N0dOeJiemRkeubm+uenu2lpe6qqu6trfC4uPG8vPLBwfLExPTLy/XOzvXR0fbU1PfZ2fje3vjg4Pnk5Pvr6/zv7/zw8P329v76+v7+/v///////////////////////////////////////////////////////////////////////////////////yH5BAEKAD8ALAAAAAAYABgAAAbBwJ+wsUgUj8bkcdEQCiWAqHRKpUqE1ewgYaj+GtnpAaMqjx5TYji6MJXfKot0sVgPRu9MJFNGA4prDnlSfCNRRmsVbxFSEWVdgGFkZRmEZQkAiGEScHp8ZQN/mFkHeHBwGId1VQmmp2UnB2yjYq6vI6uZuYe2FhMYGBUOoXO0AKWoa6pSyJ3Kory3z5ofbyEcbh/PgAlwjAAFxGuIBydvFc9TTFEMph3pUk1SBRIn7/AAT1MD4s9XTkSUCERCp4mQIAA7">
+<link rel="apple-touch-icon image_src" href="data:image/gif;base64,R0lGODlhGAAYAKUrAMsBAcwAAM0HB84KCs4NDdAVFdEeHtMlJdQrK9QtLdQwMNU0NNg8PN1cXN9hYeFra+Nzc+N0dOeJiemRkeubm+uenu2lpe6qqu6trfC4uPG8vPLBwfLExPTLy/XOzvXR0fbU1PfZ2fje3vjg4Pnk5Pvr6/zv7/zw8P329v76+v7+/v///////////////////////////////////////////////////////////////////////////////////yH5BAEKAD8ALAAAAAAYABgAAAbBwJ+wsUgUj8bkcdEQCiWAqHRKpUqE1ewgYaj+GtnpAaMqjx5TYji6MJXfKot0sVgPRu9MJFNGA4prDnlSfCNRRmsVbxFSEWVdgGFkZRmEZQkAiGEScHp8ZQN/mFkHeHBwGId1VQmmp2UnB2yjYq6vI6uZuYe2FhMYGBUOoXO0AKWoa6pSyJ3Kory3z5ofbyEcbh/PgAlwjAAFxGuIBydvFc9TTFEMph3pUk1SBRIn7/AAT1MD4s9XTkSUCERCp4mQIAA7">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<style>
+html, body {
+  height: 100%; margin:0px;
+  width: 100%; 
+  background-color: #ddd;
+}
+div#main {
+  height: 100%; width: 100%;
+}
+div#main.not-ie {
+  display: flex;
+  /*flex-direction: column;*/
+  justify-content: center;
+  align-items: center;
+}
+@media (min-width: 640px) {
+  div#main.not-ie {
+    /* ffox */
+    display:-moz-box;
+    -moz-box-pack:center;
+    -moz-box-align:center;
+    /* webkit (chrome, safary, opera) */
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+  }
+  div#main.ie {
+    display:-ms-flexbox;
+    -ms-flex-pack:center;
+    -ms-flex-align:center;
+  }
+  div#main.ie > form {
+    margin-left:0px;
+    margin-right:0px;
+  }
+  div#main {
+    /* W3C */
+    display:box;
+    box-pack:center;
+    box-align:center;
+  }
+}
+form {
+  background-color: #fff;
+  margin:auto;
+  padding-left: 7pt; padding-right: 7pt;
+  max-width: 640pt;
+  border: 1px solid blue;
+  border-radius: 1.5em;
+  box-shadow: 10px 10px 5px #999999;
+}
+label, .no-sel {
+  -moz-user-select:none;
+  -webkit-user-select:none;
+}
+h4 {
+  padding:5pt;
+  border-radius: .75em;
+}
+h4 img {float: left; margin-right: 5pt;}
+@media (max-width: 480px) {
+  h4 {font-size: 10pt; text-align: center;}
+  form .input-group, form .input-group-addon, input.form-control {font-size: 9pt;}
+}
+.lab {
+  min-width: 6.5em;
+}
+.input-group-addon {
+  color: #000;
+  background: #e0e0e0;
+  border-radius: 5pt;
+}
+.lab2 {
+  color: #000;
+  background-color: #c0d0ff;
+}
+.pwd-vis {margin: 0px; float: right; min-width: 6.5em;}
+.pwd-dom-only {margin: 0px; float: right; min-width: 10.5em;}
+.futter {
+  font-size: 80%; margin-bottom: 5pt;
+}
+div#wait {
+  padding-top: 50vh; margin: 0px;
+  position: absolute; left: 0px; top: 0px; width: 100%; height: 100%;
+  opacity: .75;
+  color: #fff;
+  background-color: #555555;
+  z-index: 100;
+  vertical-align: middle;
+  text-align: center;
+}
+</style>
+<script> window._loading = true; </script>
+</head>
+<body><div id="main" class="no-sel not-ie">
+<form role="form">
+  <h4 class="bg-primary">
+    <div>
+      <img src="data:image/gif;base64,R0lGODlhGAAYAKUrAMsBAcwAAM0HB84KCs4NDdAVFdEeHtMlJdQrK9QtLdQwMNU0NNg8PN1cXN9hYeFra+Nzc+N0dOeJiemRkeubm+uenu2lpe6qqu6trfC4uPG8vPLBwfLExPTLy/XOzvXR0fbU1PfZ2fje3vjg4Pnk5Pvr6/zv7/zw8P329v76+v7+/v///////////////////////////////////////////////////////////////////////////////////yH5BAEKAD8ALAAAAAAYABgAAAbBwJ+wsUgUj8bkcdEQCiWAqHRKpUqE1ewgYaj+GtnpAaMqjx5TYji6MJXfKot0sVgPRu9MJFNGA4prDnlSfCNRRmsVbxFSEWVdgGFkZRmEZQkAiGEScHp8ZQN/mFkHeHBwGId1VQmmp2UnB2yjYq6vI6uZuYe2FhMYGBUOoXO0AKWoa6pSyJ3Kory3z5ofbyEcbh/PgAlwjAAFxGuIBydvFc9TTFEMph3pUk1SBRIn7/AAT1MD4s9XTkSUCERCp4mQIAA7">
+      <div><nobr>Persistent Password Generator</nobr> <nobr>[sebres-pwd-hasher]</nobr></div>
+    </div>
+  </h4>
+  <div class="form-inline">
+    <div class="input-group col-sm-6">
+      <label for="pwdSite" class="lab input-group-addon">Web-Site:</label>
+      <input type="text" class="form-control" id="pwdSite" placeholder="Address of the web-site" 
+        onchange="_generate_pwd()" oninput="_generate_on_input(this)" onfocus="_focus_input_elm(this)">
+      <div class="input-group-addon pwd-dom-only">
+        <label class="checkbox-inline"><input id="pwdDTLD" type="checkbox" onchange="_generate_pwd()" checked>- domain.tld only</label>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label for="pwdSecret" class="lab input-group-addon">Secret:</label>
+      <input type="password" class="form-control" id="pwdSecret" placeholder="Secret word or phrase" 
+        onchange="_generate_pwd()" oninput="_generate_on_input(this)" onfocus="_focus_input_elm(this)">
+      <div class="input-group-addon pwd-vis">
+        <label class="checkbox-inline"><input id="pwdSecretVis" type="checkbox" onchange="_switch_pwd_visibility(this);">- visible</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group" style="margin-top:5pt;">
+    <div class="input-group col-sm-10">
+      <label for="pwdFrmt" class="lab input-group-addon">Type:</label>
+      <div class="col-sm-8" style="padding-top:3px;">
+        <label class="radio-inline"><input type="radio" name="pwdFrmt" id="pwdFrmt" value="normal" checked accesskey="n" 
+          onchange="_generate_pwd()">- <u>N</u>ormal </label>
+        &nbsp; <nobr>
+        <label class="radio-inline"><input type="radio" name="pwdFrmt" id="pwdShort" value="short" accesskey="s" 
+          onchange="_generate_pwd()">- <u>S</u>hort </label>
+        <label class="radio-inline"><input type="radio" name="pwdFrmt" id="pwdLong" value="long" accesskey="l" 
+          onchange="_generate_pwd()">- <u>L</u>ong </label>
+        </nobr>
+        &nbsp;&nbsp;
+        <label class="checkbox-inline"><input id="pwdAlNum" type="checkbox" accesskey="a" 
+          onchange="_generate_pwd()">- <u>A</u>lphanumeric </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="input-group">
+      <label for="pwdIn" class="lab input-group-addon">Password:</label>
+      <input type="text" class="form-control" id="pwdIn" placeholder="Password" 
+        onchange="_generate_pwd()" oninput="_generate_on_input(this)" onfocus="_focus_input_elm(this)">
+      <div class="input-group-addon pwd-vis">
+        <label class="checkbox-inline"><input id="pwdInVis" type="checkbox" onchange="_switch_pwd_visibility(this);">- visible</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="input-group">
+      <label for="pwdOut" class="lab input-group-addon lab2">Result:</label>
+      <input type="text" class="form-control" id="pwdOut" placeholder="Hashed password (generated)" readonly="readonly" onfocus="setTimeout(function () {this.select();}, 100);" onmousedown="this.select();">
+      <div class="input-group-addon pwd-vis">
+        <label class="checkbox-inline"><input id="pwdOutVis" type="checkbox" onchange="_switch_pwd_visibility(this);">- visible</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row text-center">
+    <div style="margin-top:-1em;">
+      <button id="btnCpy" type="button" class="btn btn-primary" onclick="_copy_pwd();" disabled="on">Copy</button>
+    </div>
+  </div>
+  <div class="futter text-right">
+    <nobr>[sebres-pwd-hasher]</nobr> :: <nobr>Copyright &copy; 2016</nobr> <nobr>Serg G. Brester (<a href="http://sebres.de">sebres</a>)</nobr>
+  </div>
+</form>
+<br>
+</div>
+<div id="wait" class="no-sel"><span style="background-color: #000000; padding: 10pt;">Please wait ... </span></div>
+</body>
+
+<script>
+/*------------------------------------------------------------------------------------*
+|  Browser password generator                                                         |
+|                                                                                     |
+|  Usable under ubiquity resp. as js-module in static html                            |
+| ----------------------------------------------------------------------------------- |
+|  Copyright (c) 2016 Serg G. Brester (sebres)                                        |
+|  Freely distributable under the MIT license.                                        |
+| ----------------------------------------------------------------------------------- |
+|  Original source code for:                                                          |
+|    murmurHash3.js -- http://github.com/karanlyons/murmurHash.js                     |
+|    base91.js      -- https://github.com/mscdex/base91.js/blob/master/lib/base91.js  |
+|------------------------------------------------------------------------------------*/
+
+;(function (root, undefined) {
+  'use strict';
+  
+  // Create a local object that'll be exported or referenced globally.
+  var library = {
+    'mm3x64': {},
+    'base91': {}
+  };
+  
+  var ENCODING_TABLE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!#$%&()*+,./:;<=>?@[]^_`{|}~"'.split('');
+
+  var base91 = {
+    encode: function(data, enctable) {
+      var i = 0, len = data.length,
+          output = '', ebq = 0, en = 0, ev = 0, j = 0, byte = 0;
+
+      if (enctable) {
+        if (typeof enctable === 'number')
+          // part of default table:
+          enctable = ENCODING_TABLE.slice(0, enctable);
+        else 
+        if (typeof enctable === 'string')
+          // user specified table:
+          enctable = enctable.split('');
+        // fulfill to 91 bytes:
+        while (enctable.length < 91)
+          enctable = enctable.concat(enctable);
+      } else {
+        // default table:
+        enctable = ENCODING_TABLE;
+      }
+
+      if (typeof data === 'string') {
+        for (i = 0; i < len; ++i) {
+          byte = data.charCodeAt(i);
+          j = 0;
+          var lenj = (byte < 128
+                      ? 1
+                      : (byte > 127 && byte < 2048
+                         ? 2
+                         : 3));
+          for (; j < lenj; ++j) {
+            if (lenj === 1)
+              ebq |= byte << en;
+            else if (lenj === 2) {
+              if (j === 0)
+                ebq |= ((byte >> 6) | 192) << en;
+              else
+                ebq |= ((byte & 63) | 128) << en;
+            } else {
+              if (j === 0)
+                ebq |= ((byte >> 12) | 224) << en;
+              else if (j === 1)
+                ebq |= (((byte >> 6) & 63) | 128) << en;
+              else
+                ebq |= ((byte & 63) | 128) << en;
+            }
+            en += 8;
+            if (en > 13) {
+              ev = ebq & 8191;
+              if (ev > 88) {
+                ebq >>= 13;
+                en -= 13;
+              } else {
+                ev = ebq & 16383;
+                ebq >>= 14;
+                en -= 14;
+              }
+              output += enctable[ev % 91];
+              output += enctable[(ev / 91) | 0];
+            }
+          }
+        }
+      } else {
+        for (i = 0; i < len; ++i) {
+          ebq |= (data[i] & 255) << en;
+          en += 8;
+          if (en > 13) {
+            ev = ebq & 8191;
+            if (ev > 88) {
+              ebq >>= 13;
+              en -= 13;
+            } else {
+              ev = ebq & 16383;
+              ebq >>= 14;
+              en -= 14;
+            }
+            output += enctable[ev % 91];
+            output += enctable[(ev / 91) | 0];
+          }
+        }
+      }
+
+      if (en > 0) {
+        output += enctable[ebq % 91];
+        if (en > 7 || ebq > 90)
+          output += enctable[(ebq / 91) | 0];
+      }
+
+      return output;
+    }
+  }
+
+  library.base91 = base91;
+
+  function _x64Add(m, n) {
+    //
+    // Given two 64bit ints (as an array of two 32bit ints) returns the two
+    // added together as a 64bit int (as an array of two 32bit ints).
+    //
+    
+    m = [m[0] >>> 16, m[0] & 0xffff, m[1] >>> 16, m[1] & 0xffff];
+    n = [n[0] >>> 16, n[0] & 0xffff, n[1] >>> 16, n[1] & 0xffff];
+    var o = [0, 0, 0, 0];
+    
+    o[3] += m[3] + n[3];
+    o[2] += o[3] >>> 16;
+    o[3] &= 0xffff;
+    
+    o[2] += m[2] + n[2];
+    o[1] += o[2] >>> 16;
+    o[2] &= 0xffff;
+    
+    o[1] += m[1] + n[1];
+    o[0] += o[1] >>> 16;
+    o[1] &= 0xffff;
+    
+    o[0] += m[0] + n[0];
+    o[0] &= 0xffff;
+    
+    return [(o[0] << 16) | o[1], (o[2] << 16) | o[3]];
+  }
+  
+  
+  function _x64Multiply(m, n) {
+    //
+    // Given two 64bit ints (as an array of two 32bit ints) returns the two
+    // multiplied together as a 64bit int (as an array of two 32bit ints).
+    //
+    
+    m = [m[0] >>> 16, m[0] & 0xffff, m[1] >>> 16, m[1] & 0xffff];
+    n = [n[0] >>> 16, n[0] & 0xffff, n[1] >>> 16, n[1] & 0xffff];
+    var o = [0, 0, 0, 0];
+    
+    o[3] += m[3] * n[3];
+    o[2] += o[3] >>> 16;
+    o[3] &= 0xffff;
+    
+    o[2] += m[2] * n[3];
+    o[1] += o[2] >>> 16;
+    o[2] &= 0xffff;
+    
+    o[2] += m[3] * n[2];
+    o[1] += o[2] >>> 16;
+    o[2] &= 0xffff;
+    
+    o[1] += m[1] * n[3];
+    o[0] += o[1] >>> 16;
+    o[1] &= 0xffff;
+    
+    o[1] += m[2] * n[2];
+    o[0] += o[1] >>> 16;
+    o[1] &= 0xffff;
+    
+    o[1] += m[3] * n[1];
+    o[0] += o[1] >>> 16;
+    o[1] &= 0xffff;
+    
+    o[0] += (m[0] * n[3]) + (m[1] * n[2]) + (m[2] * n[1]) + (m[3] * n[0]);
+    o[0] &= 0xffff;
+    
+    return [(o[0] << 16) | o[1], (o[2] << 16) | o[3]];
+  }
+  
+  
+  function _x64Rotl(m, n) {
+    //
+    // Given a 64bit int (as an array of two 32bit ints) and an int
+    // representing a number of bit positions, returns the 64bit int (as an
+    // array of two 32bit ints) rotated left by that number of positions.
+    //
+    
+    n %= 64;
+    
+    if (n === 32) {
+      return [m[1], m[0]];
+    }
+    
+    else if (n < 32) {
+      return [(m[0] << n) | (m[1] >>> (32 - n)), (m[1] << n) | (m[0] >>> (32 - n))];
+    }
+    
+    else {
+      n -= 32;
+      return [(m[1] << n) | (m[0] >>> (32 - n)), (m[0] << n) | (m[1] >>> (32 - n))];
+    }
+  }
+  
+  
+  function _x64LeftShift(m, n) {
+    //
+    // Given a 64bit int (as an array of two 32bit ints) and an int
+    // representing a number of bit positions, returns the 64bit int (as an
+    // array of two 32bit ints) shifted left by that number of positions.
+    //
+    
+    n %= 64;
+    
+    if (n === 0) {
+      return m;
+    }
+    
+    else if (n < 32) {
+      return [(m[0] << n) | (m[1] >>> (32 - n)), m[1] << n];
+    }
+    
+    else {
+      return [m[1] << (n - 32), 0];
+    }
+  }
+  
+  
+  function _x64Xor(m, n) {
+    //
+    // Given two 64bit ints (as an array of two 32bit ints) returns the two
+    // xored together as a 64bit int (as an array of two 32bit ints).
+    //
+    
+    return [m[0] ^ n[0], m[1] ^ n[1]];
+  }
+  
+  
+  function _x64Fmix(h) {
+    //
+    // Given a block, returns murmurHash3's final x64 mix of that block.
+    // (`[0, h[0] >>> 1]` is a 33 bit unsigned right shift. This is the
+    // only place where we need to right shift 64bit ints.)
+    //
+    
+    h = _x64Xor(h, [0, h[0] >>> 1]);
+    h = _x64Multiply(h, [0xff51afd7, 0xed558ccd]);
+    h = _x64Xor(h, [0, h[0] >>> 1]);
+    h = _x64Multiply(h, [0xc4ceb9fe, 0x1a85ec53]);
+    h = _x64Xor(h, [0, h[0] >>> 1]);
+    
+    return h;
+  }
+  
+  var mm3x64 = {
+    hash128: function (key, seed, asint, uni) {
+      //
+      // Given a string and an optional seed as an int, returns a 128 bit
+      // hash using the x64 flavor of MurmurHash3, as an unsigned hex.
+      //
+      if (typeof key === 'string') {
+        // string as bytes (utf-8 or unicode):
+        key = _str2bytes(key, uni);
+      }
+      // iterator over byte-array:
+      var _code_at = function(i) {return key[i];}
+      seed = seed || 0;
+      
+      var remainder = key.length % 16;
+      var bytes = key.length - remainder;
+      
+      var h1 = [0, seed];
+      var h2 = [0, seed];
+      
+      var k1 = [0, 0];
+      var k2 = [0, 0];
+      
+      var c1 = [0x87c37b91, 0x114253d5];
+      var c2 = [0x4cf5ad43, 0x2745937f];
+      
+      for (var i = 0; i < bytes; i = i + 16) {
+        k1 = [ (_code_at(i + 4)) | (_code_at(i + 5) << 8) | (_code_at(i + 6) << 16) | (_code_at(i + 7) << 24), 
+               (_code_at(i)) | (_code_at(i + 1) << 8) | (_code_at(i + 2) << 16) | (_code_at(i + 3) << 24) ];
+        k2 = [ (_code_at(i + 12)) | (_code_at(i + 13) << 8) | (_code_at(i + 14) << 16) | (_code_at(i + 15) << 24), 
+               (_code_at(i + 8)) | (_code_at(i + 9) << 8) | (_code_at(i + 10) << 16) | (_code_at(i + 11) << 24) ];
+        
+        k1 = _x64Multiply(k1, c1);
+        k1 = _x64Rotl(k1, 31);
+        k1 = _x64Multiply(k1, c2);
+        h1 = _x64Xor(h1, k1);
+        
+        h1 = _x64Rotl(h1, 27);
+        h1 = _x64Add(h1, h2);
+        h1 = _x64Add(_x64Multiply(h1, [0, 5]), [0, 0x52dce729]);
+        
+        k2 = _x64Multiply(k2, c2);
+        k2 = _x64Rotl(k2, 33);
+        k2 = _x64Multiply(k2, c1);
+        h2 = _x64Xor(h2, k2);
+        
+        h2 = _x64Rotl(h2, 31);
+        h2 = _x64Add(h2, h1);
+        h2 = _x64Add(_x64Multiply(h2, [0, 5]), [0, 0x38495ab5]);
+      }
+      
+      k1 = [0, 0];
+      k2 = [0, 0];
+      
+      switch(remainder) {
+        case 15:
+          k2 = _x64Xor(k2, _x64LeftShift([0, _code_at(i + 14)], 48));
+        
+        case 14:
+          k2 = _x64Xor(k2, _x64LeftShift([0, _code_at(i + 13)], 40));
+        
+        case 13:
+          k2 = _x64Xor(k2, _x64LeftShift([0, _code_at(i + 12)], 32));
+        
+        case 12:
+          k2 = _x64Xor(k2, _x64LeftShift([0, _code_at(i + 11)], 24));
+        
+        case 11:
+          k2 = _x64Xor(k2, _x64LeftShift([0, _code_at(i + 10)], 16));
+        
+        case 10:
+          k2 = _x64Xor(k2, _x64LeftShift([0, _code_at(i + 9)], 8));
+        
+        case 9:
+          k2 = _x64Xor(k2, [0, _code_at(i + 8)]);
+          k2 = _x64Multiply(k2, c2);
+          k2 = _x64Rotl(k2, 33);
+          k2 = _x64Multiply(k2, c1);
+          h2 = _x64Xor(h2, k2);
+        
+        case 8:
+          k1 = _x64Xor(k1, _x64LeftShift([0, _code_at(i + 7)], 56));
+        
+        case 7:
+          k1 = _x64Xor(k1, _x64LeftShift([0, _code_at(i + 6)], 48));
+        
+        case 6:
+          k1 = _x64Xor(k1, _x64LeftShift([0, _code_at(i + 5)], 40));
+        
+        case 5:
+          k1 = _x64Xor(k1, _x64LeftShift([0, _code_at(i + 4)], 32));
+        
+        case 4:
+          k1 = _x64Xor(k1, _x64LeftShift([0, _code_at(i + 3)], 24));
+        
+        case 3:
+          k1 = _x64Xor(k1, _x64LeftShift([0, _code_at(i + 2)], 16));
+        
+        case 2:
+          k1 = _x64Xor(k1, _x64LeftShift([0, _code_at(i + 1)], 8));
+        
+        case 1:
+          k1 = _x64Xor(k1, [0, _code_at(i)]);
+          k1 = _x64Multiply(k1, c1);
+          k1 = _x64Rotl(k1, 31);
+          k1 = _x64Multiply(k1, c2);
+          h1 = _x64Xor(h1, k1);
+      }
+      
+      h1 = _x64Xor(h1, [0, key.length]);
+      h2 = _x64Xor(h2, [0, key.length]);
+      
+      h1 = _x64Add(h1, h2);
+      h2 = _x64Add(h2, h1);
+      
+      h1 = _x64Fmix(h1);
+      h2 = _x64Fmix(h2);
+      
+      h1 = _x64Add(h1, h2);
+      h2 = _x64Add(h2, h1);
+      
+      if (asint)
+        return [h1, h2];
+      return _x128ToBytes([h1, h2]);
+    }
+  };
+  library.mm3x64 = mm3x64;
+
+  // -----------------------------------
+
+  function _x32ToBytes(x) {
+    var bytes = [],
+        i = 4, c;
+    do { c = (x & 0xff); x >>= 8; bytes[--i] = c; } while (i > 0);
+    return bytes;
+  }
+  function _x64ToBytes(x) {
+    return _x32ToBytes(x[0]).concat(_x32ToBytes(x[1]));
+  }
+  function _x128ToBytes(x) {
+    return _x64ToBytes(x[0]).concat(_x64ToBytes(x[1]));
+  }
+
+  function _x64Fmix2Int(h) {
+    h = _x64Fmix(h);
+    return (h[0] + (h[1] << 3) & 0x7fffffff) & 0x7fffffff;
+  }
+  function _x128Fmix2Int(h) {
+    return (_x64Fmix2Int(h[0]) + (_x64Fmix2Int(h[1]) << 3) & 0x7fffffff) & 0x7fffffff;
+  }
+
+
+  function _str2bytes(str, uni) {
+    var bytes = [], 
+        l, i = -1, c, h;
+    if (!str || !str.length) {return bytes;}
+    l = str.length;
+    if (!uni) {
+      while ((i += 1) < l) {
+        // decode utf-16 surrogate pairs:
+        c = str.charCodeAt(i);
+        h = i + 1 < l ? str.charCodeAt(i + 1) : 0;
+        if (0xD800 <= c && c <= 0xDBFF && 0xDC00 <= h && h <= 0xDFFF) {
+          c = 0x10000 + ((c & 0x03FF) << 10) + (h & 0x03FF);
+          i += 1;
+        }
+        // encode output as utf-8:
+        if (c <= 0x7F) {
+          bytes.push(c);
+        } else if (c <= 0x7FF) {
+          bytes.push(0xC0 | ((c >>> 6) & 0x1F),
+            0x80 | (c & 0x3F));
+        } else if (c <= 0xFFFF) {
+          bytes.push(0xE0 | ((c >>> 12) & 0x0F),
+            0x80 | ((c >>> 6) & 0x3F),
+            0x80 | (c & 0x3F));
+        } else if (c <= 0x1FFFFF) {
+          bytes.push(0xF0 | ((c >>> 18) & 0x07),
+            0x80 | ((c >>> 12) & 0x3F),
+            0x80 | ((c >>> 6) & 0x3F),
+            0x80 | (c & 0x3F));
+        }
+      }
+    } else {
+      while ((i += 1) < l) {
+        c = str.charCodeAt(i);
+        h = (c >>> 8);
+        bytes.push(c & 0xFF);
+        if (h) bytes.push(h);
+      }
+    }
+    return bytes;
+  }
+  library._str2bytes = _str2bytes;
+
+  // -----------------------------------
+
+  function _str2utf8(str) {
+    return String.fromCharCode.apply(null, _str2bytes(str));
+  }
+  library._str2utf8 = _str2utf8;
+
+  // -----------------------------------
+
+  function _siteFromURL(url) {
+    var domonly = true;
+    if (typeof url === 'object') {
+      domonly = url[1];
+      url = url[0];
+    }
+    // http://www.site.tld/?... -> www.site.tld:
+    url = url.replace(/^(?:\w+:[\/]{0,3})?([^\s\/\?]+)(?:.*)?$/, '$1')
+    if (domonly) {
+      // www.site.tld -> site.tld:
+      url = url.replace(/(?:[^\.]*\.)*((?:[^\/\.]+\.)(?:[^\/\.]+))$/, '$1');
+    }
+    return url;
+  }
+  library._siteFromURL = _siteFromURL;
+
+  // -----------------------------------
+
+  function Hash(pwd, seed, enctable, macstr) {
+    if (macstr == null)
+      macstr = 'UbipWd';
+    var msl = ((macstr.length / 2) | 0) || 1;
+    macstr = [macstr.substr(0, msl), macstr.substr(msl)];
+    if (typeof seed !== 'nummer') {
+      seed = mm3x64.hash128(macstr[0] + '/' + _siteFromURL(seed) + '*' + macstr[1], 0x0b36d6d2, 1);
+      seed = _x128Fmix2Int(seed);
+    }
+    return base91.encode(
+      mm3x64.hash128(macstr[0] + pwd, seed).concat(
+      mm3x64.hash128(pwd + macstr[1], -seed)),
+      enctable
+    );
+  }
+  library.Hash = Hash;
+
+  function Hash2(pwd, seed, enctable, macstr) {
+    if (macstr == null)
+      macstr = 'UbipWd';
+    var msl = ((macstr.length / 3) | 0) || 1;
+    if (!msl) msl++;
+    macstr = [macstr.substr(0, msl), 
+              macstr.substr(msl, msl),
+              macstr.substr(msl*2)];
+    if (typeof seed !== 'nummer') {
+      seed = _siteFromURL(seed);
+      seed = [mm3x64.hash128(macstr[0] + '/' + seed + '*' + macstr[1], 0x5317ad5f, 1),
+              mm3x64.hash128(macstr[1] + '*' + seed + '/' + macstr[2], 0x71f3d01e, 1)];
+      seed = _x64Fmix2Int([_x128Fmix2Int(seed[0]), _x128Fmix2Int(seed[1])]);
+    }
+    return base91.encode(
+      mm3x64.hash128(macstr[0] + pwd, seed).concat(
+      mm3x64.hash128(pwd + macstr[1], -seed)).concat(
+      mm3x64.hash128(macstr[0] + pwd.substr(0, 5) + macstr[2] + pwd.substr(5), (seed/2))).concat(
+      mm3x64.hash128(macstr[1] + pwd.substr(0, 10) + macstr[2] + pwd.substr(10), -(seed/2))),
+      enctable
+    );
+  }
+  library.Hash2 = Hash2;
+
+  // --------------
+  
+  // export:
+  root.PwdGen = library;
+
+})(this);
+
+</script>
+
+<script>
+
+window._generate_pwd_ev = null;
+function _generate_pwd(nowf) {
+  if (window._loading) return;
+  var pwdOut = _d.e('pwdOut'),
+      pwdIn  = _d.e('pwdIn'),
+      pwdSecret = _d.e('pwdSecret'),
+      btnCpy = _d.e('btnCpy');
+  if (!pwdOut._generate) {
+    pwdOut._generate = true;
+    btnCpy.disabled = true;
+    _e.cn(pwdSecret.parentNode, 'has-warning', !pwdSecret.value.length);
+    _e.cn(pwdIn.parentNode, 'has-error', !pwdIn.value.length);
+    _e.cn(pwdOut.parentNode, 'has-success', 0);
+  }
+  if (window._generate_pwd_ev) {
+    clearTimeout(window._generate_pwd_ev); window._generate_pwd_ev = null;
+  }
+  if (nowf == null) nowf = 1;
+  if (!nowf) {
+    window._generate_pwd_ev = setTimeout('_generate_pwd(1)', 600);
+    return;
+  }
+  var pwdSite = _d.e('pwdSite').value,
+      pwdDTLD = _d.e('pwdDTLD').checked,
+      pwdShort = _d.e('pwdShort').checked, 
+      pwdLong  = _d.e('pwdLong').checked,
+      pwdAlNum = _d.e('pwdAlNum').checked;
+  var h = (pwdShort || !pwdLong) ? PwdGen.Hash : PwdGen.Hash2;
+  var pwd = ''
+  pwdSecret = _d.e('pwdSecret').value;
+  if ((pwdIn = pwdIn.value).length) {
+    pwd = h( pwdIn, [pwdSite, pwdDTLD], pwdAlNum ? 62 : null, pwdSecret != '' ? pwdSecret : null );
+    if (pwdShort) {
+      pwd = pwd.substr(0, 15);
+    }
+    _e.cn(pwdOut.parentNode, 'has-success', 1);
+    btnCpy.disabled = false;
+  }
+  pwdOut._generate = null;
+  pwdOut.value = pwd;
+}
+
+function _focus_input_elm(elm) {
+  elm._prev_value = elm.value;
+  elm.onkeyup = function() {return _generate_on_input(elm);}
+}
+
+function _generate_on_input(elm) {
+  if (elm._prev_value == elm.value)
+    return true;
+  elm._prev_value = elm.value;
+  _generate_pwd(0);
+  return true;
+}
+
+function _switch_pwd_visibility(elm, chk) {
+  if (typeof elm === 'object') {
+    chk = elm.checked;
+    elm = _d.e(elm.id.replace(/Vis$/, ''));
+  } else {
+    if (chk == null) chk = _d.e(elm + 'Vis').checked;
+    elm = _d.e(elm);
+  }
+  elm.type = chk ? 'text' : 'password';
+}
+
+function _copy_pwd(nowf) {
+  _e.cn(_d.e('wait'), 'hidden', 0);
+  var pwdOut = _d.e('pwdOut');
+  if (!pwdOut.value.length)
+    _generate_pwd(1);
+  var pwd = pwdOut.value;
+  var success = true;
+  if (window.clipboardData) {
+    window.clipboardData.setData ("Text", pwd);
+  } else {
+    var cpyElm = pwdOut;
+    if (pwdOut.type == 'password') {
+      cpyElm = document.createElement('TEXTAREA');
+      cpyElm.style.width = '0px';
+      cpyElm.style.height = '0px';
+      cpyElm.value = pwdOut.value;
+      pwdOut.parentNode.appendChild(cpyElm);
+    }
+    cpyElm.focus();
+    cpyElm.select();
+    try {
+      success = document.execCommand("Copy", false, null);
+    }
+    catch (e) {
+      success = false;
+      alert(e);
+    }
+    if (cpyElm != pwdOut) {
+      pwdOut.focus();
+      cpyElm.remove();
+    }
+  }
+  setTimeout("_e.cn(_d.e('wait'), 'hidden', 1);", 10);
+  if (!success)
+    alert("Your browser doesn't allow copy to clipboard!");
+}
+
+;(function (){
+  window._d = {e: function(i) {return document.getElementById(i)}};
+  window._e = {cn: function(e, c, on) {
+    if (e.classList) {
+      if (on != e.classList.contains(c)) e.classList.toggle(c, on);
+    } else if (on) {
+      if (!e.className.search(' ' + c)) {
+        e.className += ' ' + c;
+      }
+    } else {
+      e.className = e.className.replace(' ' + c, '');
+    }
+  }};
+  // --------------
+  if (navigator && navigator.appName == 'Microsoft Internet Explorer' 
+    || (navigator.userAgent.indexOf("MSIE") != -1) || (navigator.userAgent.indexOf("Trident/") != -1)) {
+    _e.cn(_d.e('main'), 'not-ie', 0);
+    _e.cn(_d.e('main'), 'ie', 1);
+  }
+  // --------------
+  window._loading = false;
+  _generate_pwd(1);
+  _switch_pwd_visibility('pwdIn');
+  _switch_pwd_visibility('pwdOut');
+  _switch_pwd_visibility('pwdSecret');
+  with (_d.e('pwdIn')) {
+    focus();
+    select();
+  }
+  setTimeout("_e.cn(_d.e('wait'), 'hidden', 1);", 0);
+})();
+</script>
+
+</html>
