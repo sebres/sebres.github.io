@@ -1,0 +1,133 @@
+<!DOCTYPE HTML><html lang="en">
+<head><meta charset="UTF-8">
+<title>Serg G. Brester :: sebres / Projects</title>
+<link rel="shortcut icon" href="https://avatars2.githubusercontent.com/u/3769657?v=3&s=40">
+<link rel="apple-touch-icon image_src" href="https://avatars2.githubusercontent.com/u/3769657?v=3&s=40">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<style>
+html, body {
+  height: 100%; margin:0px;
+  width: 100%; 
+  background-color: #ddd;
+}
+div#main {
+  height: 100%; width: 100%;
+}
+div#main.not-ie {
+  display: flex;
+  /*flex-direction: column;*/
+  justify-content: center;
+  align-items: center;
+}
+@media (min-width: 640px) {
+  div#main.not-ie {
+    /* ffox */
+    display:-moz-box;
+    -moz-box-pack:center;
+    -moz-box-align:center;
+    /* webkit (chrome, safary, opera) */
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    -webkit-box-align:center;
+  }
+  div#main.ie {
+    display:-ms-flexbox;
+    -ms-flex-pack:center;
+    -ms-flex-align:center;
+  }
+  div#main.ie > form {
+    margin-left:0px;
+    margin-right:0px;
+  }
+  div#main {
+    /* W3C */
+    display:box;
+    box-pack:center;
+    box-align:center;
+  }
+}
+form {
+  background-color: #fff;
+  margin:auto;
+  padding-left: 7pt; padding-right: 7pt;
+  max-width: 640pt; min-height: 200pt;
+  border: 1px solid blue;
+  border-radius: 1.5em;
+  box-shadow: 10px 10px 5px #999999;
+  position:relative;
+}
+label, .no-sel {
+  -moz-user-select:none;
+  -webkit-user-select:none;
+}
+h4 {
+  padding:5pt;
+  border-radius: .75em;
+}
+h4 img {float: left; margin-right: 5pt; margin-top: -2px; max-height: 18pt;}
+.entry img {float: left; margin-right: 5pt;}
+@media (max-width: 480px) {
+  h4, .entry {font-size: 10pt; text-align: left;}
+  form .input-group, form .input-group-addon, input.form-control {font-size: 9pt;}
+}
+.input-group-addon {
+  color: #000;
+  background: #e0e0e0;
+  border-radius: 5pt;
+}
+.futter {
+  font-size: 80%; margin-bottom: 5pt;
+  position: absolute; bottom: 5pt; right: 5pt;
+}
+</style>
+<script> window._loading = true; </script>
+</head>
+<body><div id="main" class="no-sel not-ie">
+<form role="form">
+
+  <h4 class="bg-primary">
+    <div><img src="https://avatars2.githubusercontent.com/u/3769657?v=3&s=40">Serg G. Brester :: sebres / Projects</div>
+  </h4>
+  <br>
+  <div class="entry">
+      <a href="/pwd-gen/"><img src="data:image/gif;base64,R0lGODlhGAAYAKUrAMsBAcwAAM0HB84KCs4NDdAVFdEeHtMlJdQrK9QtLdQwMNU0NNg8PN1cXN9hYeFra+Nzc+N0dOeJiemRkeubm+uenu2lpe6qqu6trfC4uPG8vPLBwfLExPTLy/XOzvXR0fbU1PfZ2fje3vjg4Pnk5Pvr6/zv7/zw8P329v76+v7+/v///////////////////////////////////////////////////////////////////////////////////yH5BAEKAD8ALAAAAAAYABgAAAbBwJ+wsUgUj8bkcdEQCiWAqHRKpUqE1ewgYaj+GtnpAaMqjx5TYji6MJXfKot0sVgPRu9MJFNGA4prDnlSfCNRRmsVbxFSEWVdgGFkZRmEZQkAiGEScHp8ZQN/mFkHeHBwGId1VQmmp2UnB2yjYq6vI6uZuYe2FhMYGBUOoXO0AKWoa6pSyJ3Kory3z5ofbyEcbh/PgAlwjAAFxGuIBydvFc9TTFEMph3pUk1SBRIn7/AAT1MD4s9XTkSUCERCp4mQIAA7"></a>
+      <a href="/pwd-gen/"><nobr>Persistent Password Generator</nobr> :: <nobr>[sebres-pwd-hasher]</nobr></a>
+  </div>
+  <br>
+
+  <div class="futter text-right">
+    <nobr>[sebres-projects]</nobr> :: <nobr>Copyright &copy; 2016</nobr> <nobr>Serg G. Brester (<a href="http://sebres.de">sebres</a>)</nobr>
+  </div>
+</form>
+<br>
+</div>
+</body>
+
+<script>
+
+;(function (){
+  window._d = {e: function(i) {return document.getElementById(i)}};
+  window._e = {cn: function(e, c, on) {
+    if (e.classList) {
+      if (on != e.classList.contains(c)) e.classList.toggle(c, on);
+    } else if (on) {
+      if (!e.className.search(' ' + c)) {
+        e.className += ' ' + c;
+      }
+    } else {
+      e.className = e.className.replace(' ' + c, '');
+    }
+  }};
+  // --------------
+  if (navigator && navigator.appName == 'Microsoft Internet Explorer' 
+    || (navigator.userAgent.indexOf("MSIE") != -1) || (navigator.userAgent.indexOf("Trident/") != -1)) {
+    _e.cn(_d.e('main'), 'not-ie', 0);
+    _e.cn(_d.e('main'), 'ie', 1);
+  }
+  // --------------
+  window._loading = false;
+})();
+</script>
+
+</html>
