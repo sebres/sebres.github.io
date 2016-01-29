@@ -165,14 +165,18 @@ window._e = {cn: function(e, c, on) {
   <div class="form-group" style="margin-top:5pt;">
     <div class="input-group">
       <label for="pwdFrmt" class="lab input-group-addon">Type:</label>
-      <div class="col-sm-8" style="padding-top:3px;">
+      <div class="col-sm-9" style="padding-top:3px;">
+        <nobr>
         <label class="radio-inline"><input type="radio" name="pwdFrmt" id="pwdFrmt" value="normal" checked accesskey="n" 
           onchange="_generate_pwd()">- <u>N</u>ormal </label>
-        &nbsp; <nobr>
         <label class="radio-inline"><input type="radio" name="pwdFrmt" id="pwdShort" value="short" accesskey="s" 
           onchange="_generate_pwd()">- <u>S</u>hort </label>
+        </nobr>
+        &nbsp; <nobr>
         <label class="radio-inline"><input type="radio" name="pwdFrmt" id="pwdLong" value="long" accesskey="l" 
           onchange="_generate_pwd()">- <u>L</u>ong </label>
+        <label class="radio-inline"><input type="radio" name="pwdFrmt" id="pwdVeryLng" value="verylong" accesskey="v" 
+          onchange="_generate_pwd()">- <u>V</u>ery&nbsp;Long </label>
         </nobr>
         &nbsp;&nbsp;
         <label class="checkbox-inline"><input id="pwdAlNum" type="checkbox" accesskey="a" 
@@ -788,14 +792,17 @@ function _generate_pwd(nowf) {
       pwdDTLD = _d.e('pwdDTLD').checked,
       pwdShort = _d.e('pwdShort').checked, 
       pwdLong  = _d.e('pwdLong').checked,
+      pwdVeryLng = _d.e('pwdVeryLng').checked,
       pwdAlNum = _d.e('pwdAlNum').checked;
-  var h = (pwdShort || !pwdLong) ? PwdGen.Hash : PwdGen.Hash2;
+  var h = (!pwdVeryLng) ? PwdGen.Hash : PwdGen.Hash2;
   var pwd = ''
   pwdSecret = _d.e('pwdSecret').value;
   if ((pwdIn = pwdIn.value).length) {
     pwd = h( pwdIn, [pwdSite, pwdDTLD], pwdAlNum ? 62 : null, pwdSecret != '' ? pwdSecret : null );
     if (pwdShort) {
-      pwd = pwd.substr(0, 15);
+      pwd = pwd.substr(0, 10);
+    } else if (!pwdLong && !pwdVeryLng) {
+      pwd = pwd.substr(0, 20);
     }
     _e.cn(pwdOut.parentNode, 'has-success', 1);
     btnCpy.disabled = false;
