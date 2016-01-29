@@ -693,11 +693,14 @@ window._e = {cn: function(e, c, on) {
       domonly = url[1];
       url = url[0];
     }
-    // http://www.site.tld/?... -> www.site.tld:
-    url = url.replace(/^(?:\w+:[\/]{0,3})?([^\s\/\?]+)(?:.*)?$/, '$1')
     if (domonly) {
+      // http://www.site.tld/?... -> www.site.tld:
+      url = url.replace(/^(?:\w+:[\/]{0,3})?([^\s\/\?]+)(?:.*)?$/, '$1');
       // www.site.tld -> site.tld:
       url = url.replace(/(?:[^\.]*\.)*((?:[^\/\.]+\.)(?:[^\/\.]+))$/, '$1');
+    } else {
+      // http://www.site.tld/?... -> www.site.tld/?...:
+      url = url.replace(/^(?:\w+:[\/]{0,3})?/, '');
     }
     return url;
   }
