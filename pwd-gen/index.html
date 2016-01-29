@@ -59,12 +59,23 @@ form {
 label, .no-sel {
   -moz-user-select:none;
   -webkit-user-select:none;
+  -khtml-user-select: none;
+  -o-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 h4 {
   padding:5pt;
   border-radius: .75em;
 }
-h4 img {float: left; margin-right: 5pt;}
+.key-img {
+  background-image: url('data:image/gif;base64,R0lGODlhGAAYAKUrAMsBAcwAAM0HB84KCs4NDdAVFdEeHtMlJdQrK9QtLdQwMNU0NNg8PN1cXN9hYeFra+Nzc+N0dOeJiemRkeubm+uenu2lpe6qqu6trfC4uPG8vPLBwfLExPTLy/XOzvXR0fbU1PfZ2fje3vjg4Pnk5Pvr6/zv7/zw8P329v76+v7+/v///////////////////////////////////////////////////////////////////////////////////yH5BAEKAD8ALAAAAAAYABgAAAbBwJ+wsUgUj8bkcdEQCiWAqHRKpUqE1ewgYaj+GtnpAaMqjx5TYji6MJXfKot0sVgPRu9MJFNGA4prDnlSfCNRRmsVbxFSEWVdgGFkZRmEZQkAiGEScHp8ZQN/mFkHeHBwGId1VQmmp2UnB2yjYq6vI6uZuYe2FhMYGBUOoXO0AKWoa6pSyJ3Kory3z5ofbyEcbh/PgAlwjAAFxGuIBydvFc9TTFEMph3pUk1SBRIn7/AAT1MD4s9XTkSUCERCp4mQIAA7');
+  background-size: 20pt 20pt; width: 20pt; height: 20pt; line-height: 20pt;
+  background-repeat: no-repeat;
+  display: inline-block;
+}
+h4 .key-img {float: left; margin-top: -2pt; margin-right: 5pt;}
+.btn .key-img {float: left; width: 14pt; height: 14pt; line-height: 14pt; background-size: 14pt 14pt; margin: 0px; margin-right: 5pt;}
 @media (max-width: 480px) {
   h4 {font-size: 10pt; text-align: center;}
   form .input-group, form .input-group-addon, input.form-control {font-size: 9pt;}
@@ -97,13 +108,37 @@ div#wait {
   text-align: center;
 }
 </style>
-<script> window._loading = true; </script>
+<script>
+window._loading = true;
+// --------------
+window._d = {e: function(i) {return document.getElementById(i)}};
+window._e = {cn: function(e, c, on) {
+  if (e.classList) {
+    if (on != e.classList.contains(c)) e.classList.toggle(c, on);
+  } else if (on) {
+    if (!e.className.search(' ' + c)) {
+      e.className += ' ' + c;
+    }
+  } else {
+    e.className = e.className.replace(' ' + c, '');
+  }
+}};
+</script>
 </head>
 <body><div id="main" class="no-sel not-ie">
+<script>
+  if (navigator && navigator.appName == 'Microsoft Internet Explorer' 
+    || (navigator.userAgent.indexOf("MSIE") != -1) || (navigator.userAgent.indexOf("Trident/") != -1)) {
+    var m = _d.e('main');
+    _e.cn(m, 'not-ie', 0);
+    _e.cn(m, 'ie', 1);
+    window._navi_ie = true;
+  }
+</script>
 <form role="form">
   <h4 class="bg-primary">
     <div>
-      <img src="data:image/gif;base64,R0lGODlhGAAYAKUrAMsBAcwAAM0HB84KCs4NDdAVFdEeHtMlJdQrK9QtLdQwMNU0NNg8PN1cXN9hYeFra+Nzc+N0dOeJiemRkeubm+uenu2lpe6qqu6trfC4uPG8vPLBwfLExPTLy/XOzvXR0fbU1PfZ2fje3vjg4Pnk5Pvr6/zv7/zw8P329v76+v7+/v///////////////////////////////////////////////////////////////////////////////////yH5BAEKAD8ALAAAAAAYABgAAAbBwJ+wsUgUj8bkcdEQCiWAqHRKpUqE1ewgYaj+GtnpAaMqjx5TYji6MJXfKot0sVgPRu9MJFNGA4prDnlSfCNRRmsVbxFSEWVdgGFkZRmEZQkAiGEScHp8ZQN/mFkHeHBwGId1VQmmp2UnB2yjYq6vI6uZuYe2FhMYGBUOoXO0AKWoa6pSyJ3Kory3z5ofbyEcbh/PgAlwjAAFxGuIBydvFc9TTFEMph3pUk1SBRIn7/AAT1MD4s9XTkSUCERCp4mQIAA7">
+      <span class="key-img"></span>
       <div><nobr>Persistent Password Generator</nobr> <nobr>[sebres-pwd-hasher]</nobr></div>
     </div>
   </h4>
@@ -111,7 +146,7 @@ div#wait {
     <div class="input-group col-sm-6">
       <label for="pwdSite" class="lab input-group-addon">Web-Site:</label>
       <input type="text" class="form-control" id="pwdSite" placeholder="Address of the web-site" 
-        onchange="_generate_pwd()" oninput="_generate_on_input(this)" onfocus="_focus_input_elm(this)">
+        onchange="_generate_pwd()" oninput="_generate_on_input(this, event)" onfocus="_focus_input_elm(this)">
       <div class="input-group-addon pwd-dom-only">
         <label class="checkbox-inline"><input id="pwdDTLD" type="checkbox" onchange="_generate_pwd()" checked>- domain.tld only</label>
       </div>
@@ -120,7 +155,7 @@ div#wait {
     <div class="input-group">
       <label for="pwdSecret" class="lab input-group-addon">Secret:</label>
       <input type="password" class="form-control" id="pwdSecret" placeholder="Secret word or phrase" 
-        onchange="_generate_pwd()" oninput="_generate_on_input(this)" onfocus="_focus_input_elm(this)">
+        onchange="_generate_pwd()" oninput="_generate_on_input(this, event)" onfocus="_focus_input_elm(this)">
       <div class="input-group-addon pwd-vis">
         <label class="checkbox-inline"><input id="pwdSecretVis" type="checkbox" onchange="_switch_pwd_visibility(this);">- visible</label>
       </div>
@@ -150,7 +185,7 @@ div#wait {
     <div class="input-group">
       <label for="pwdIn" class="lab input-group-addon">Password:</label>
       <input type="text" class="form-control" id="pwdIn" placeholder="Password" 
-        onchange="_generate_pwd()" oninput="_generate_on_input(this)" onfocus="_focus_input_elm(this)">
+        onchange="_generate_pwd()" oninput="_generate_on_input(this, event)" onfocus="_focus_input_elm(this)">
       <div class="input-group-addon pwd-vis">
         <label class="checkbox-inline"><input id="pwdInVis" type="checkbox" onchange="_switch_pwd_visibility(this);">- visible</label>
       </div>
@@ -160,7 +195,8 @@ div#wait {
   <div class="form-group">
     <div class="input-group">
       <label for="pwdOut" class="lab input-group-addon lab2">Result:</label>
-      <input type="text" class="form-control" id="pwdOut" placeholder="Hashed password (generated)" readonly="readonly" onfocus="setTimeout(function () {this.select();}, 100);" onmousedown="this.select();">
+      <input type="text" class="form-control" id="pwdOut" placeholder="Hashed password (generated)" readonly="readonly" 
+        onfocus="this.select();" onmouseup="this.select();var me=this; setTimeout(function () {me.select();}, 100);">
       <div class="input-group-addon pwd-vis">
         <label class="checkbox-inline"><input id="pwdOutVis" type="checkbox" onchange="_switch_pwd_visibility(this);">- visible</label>
       </div>
@@ -169,7 +205,11 @@ div#wait {
 
   <div class="form-group row text-center">
     <div style="margin-top:-1em;">
-      <button id="btnCpy" type="button" class="btn btn-primary" onclick="_copy_pwd();" disabled="on">Copy</button>
+      <button id="btnCpy" type="button" class="btn btn-primary" onclick="_copy_pwd();" disabled="on">
+        <span class="key-img"></span> Copy</button>
+      <a id="btnDrag" href="#" class="btn btn-primary" disabled="on" 
+        draggable="false" ondragstart="return _start_drag_pwd(event);" onclick="return false;">
+        <span class="key-img"></span> Drag</a>
     </div>
   </div>
   <div class="futter text-right">
@@ -723,12 +763,14 @@ function _generate_pwd(nowf) {
   var pwdOut = _d.e('pwdOut'),
       pwdIn  = _d.e('pwdIn'),
       pwdSecret = _d.e('pwdSecret'),
-      btnCpy = _d.e('btnCpy');
-  if (!pwdOut._generate) {
-    pwdOut._generate = true;
+      btnCpy = _d.e('btnCpy'),
+      btnDrag = _d.e('btnDrag');
+  _e.cn(pwdSecret.parentNode, 'has-warning', !pwdSecret.value.length);
+  _e.cn(pwdIn.parentNode, 'has-error', !pwdIn.value.length);
+  if (!window._generate_pwd_ev) {
     btnCpy.disabled = true;
-    _e.cn(pwdSecret.parentNode, 'has-warning', !pwdSecret.value.length);
-    _e.cn(pwdIn.parentNode, 'has-error', !pwdIn.value.length);
+    btnDrag.setAttribute('disabled', 'on');
+    btnDrag.draggable = false;
     _e.cn(pwdOut.parentNode, 'has-success', 0);
   }
   if (window._generate_pwd_ev) {
@@ -754,21 +796,26 @@ function _generate_pwd(nowf) {
     }
     _e.cn(pwdOut.parentNode, 'has-success', 1);
     btnCpy.disabled = false;
+    btnDrag.removeAttribute('disabled');
+    btnDrag.draggable = true;
   }
-  pwdOut._generate = null;
   pwdOut.value = pwd;
 }
 
 function _focus_input_elm(elm) {
   elm._prev_value = elm.value;
-  elm.onkeyup = function() {return _generate_on_input(elm);}
+  if (!elm.oninput && !elm.onkeyup) {
+    elm.onkeyup = function() {return _generate_on_input(elm);}
+  }
 }
 
-function _generate_on_input(elm) {
-  if (elm._prev_value == elm.value)
-    return true;
-  elm._prev_value = elm.value;
-  _generate_pwd(0);
+function _generate_on_input(elm, event) {
+  if (!event || event.type != 'input') {
+    if (elm._prev_value == elm.value)
+      return true;
+    elm._prev_value = elm.value;
+  }
+  _generate_pwd(!event || !event.charCode ? 0 : 1);
   return true;
 }
 
@@ -820,26 +867,18 @@ function _copy_pwd(nowf) {
     alert("Your browser doesn't allow copy to clipboard!");
 }
 
+function _start_drag_pwd(event) {
+  var dt = event.dataTransfer;
+  var pwd = _d.e('pwdOut').value;
+  dt.setData(!window._navi_ie ? 'text/plain' : 'text', pwd);
+  if (dt.effectAllowed)
+    dt.effectAllowed = 'copyMove';
+  //if (dt.dropEffect)
+  //  dt.dropEffect = 'move';
+  return (event.returnValue = true);
+}
+
 ;(function (){
-  window._d = {e: function(i) {return document.getElementById(i)}};
-  window._e = {cn: function(e, c, on) {
-    if (e.classList) {
-      if (on != e.classList.contains(c)) e.classList.toggle(c, on);
-    } else if (on) {
-      if (!e.className.search(' ' + c)) {
-        e.className += ' ' + c;
-      }
-    } else {
-      e.className = e.className.replace(' ' + c, '');
-    }
-  }};
-  // --------------
-  if (navigator && navigator.appName == 'Microsoft Internet Explorer' 
-    || (navigator.userAgent.indexOf("MSIE") != -1) || (navigator.userAgent.indexOf("Trident/") != -1)) {
-    _e.cn(_d.e('main'), 'not-ie', 0);
-    _e.cn(_d.e('main'), 'ie', 1);
-  }
-  // --------------
   window._loading = false;
   _generate_pwd(1);
   _switch_pwd_visibility('pwdIn');
