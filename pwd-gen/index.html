@@ -7,8 +7,9 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 <style>
 html, body {
-  height: 100%; margin:0px;
-  width: 100%; 
+  height: 100%;
+  width: 100%;
+  margin:0px;
   background-color: #ddd;
 }
 div#main {
@@ -51,7 +52,7 @@ form {
   background-color: #fff;
   margin:auto;
   padding-left: 7pt; padding-right: 7pt;
-  max-width: 640pt;
+  max-width: 800pt;
   border: 1px solid blue;
   border-radius: 1.5em;
   box-shadow: 10px 10px 5px #999999;
@@ -76,10 +77,6 @@ h4 {
 }
 h4 .key-img {float: left; margin-top: -2pt; margin-right: 5pt;}
 .btn .key-img {float: left; width: 14pt; height: 14pt; line-height: 14pt; background-size: 14pt 14pt; margin: 0px; margin-right: 5pt;}
-@media (max-width: 480px) {
-  h4 {font-size: 10pt; text-align: center;}
-  form .input-group, form .input-group-addon, input.form-control {font-size: 9pt;}
-}
 .lab {
   min-width: 6.5em;
 }
@@ -88,6 +85,7 @@ h4 .key-img {float: left; margin-top: -2pt; margin-right: 5pt;}
   background: #e0e0e0;
   border-radius: 5pt;
 }
+.input-group nobr {margin-right: 7pt;}
 .lab2 {
   color: #000;
   background-color: #c0d0ff;
@@ -106,6 +104,20 @@ div#wait {
   z-index: 100;
   vertical-align: middle;
   text-align: center;
+}
+@media (max-width: 512px) {
+  .key-img {background-size: 16pt 16pt; width: 16pt; height: 16pt; line-height: 16pt;}
+  h4 {font-size: 10pt; text-align: center;}
+  form .input-group, form .input-group-addon, input.form-control {font-size: 9pt;}
+  .form-group {margin-top:5pt; margin-bottom:5pt;}
+  .lab {padding-left: 3pt; padding-right: 3pt;}
+  .input-group nobr label {min-width: 5.75em;}
+}
+@media (max-height: 420px) {
+  .pwd-vis, .pwd-dom-only {float: inherit;}
+}
+@media (min-width: 768px) and (max-width: 800px) {
+  form {max-width: 768px}
 }
 </style>
 <script>
@@ -172,13 +184,12 @@ window._e = {cn: function(e, c, on) {
         <label class="radio-inline"><input type="radio" name="pwdFrmt" id="pwdShort" value="short" accesskey="s" 
           onchange="_generate_pwd()">- <u>S</u>hort </label>
         </nobr>
-        &nbsp; <nobr>
+        <nobr>
         <label class="radio-inline"><input type="radio" name="pwdFrmt" id="pwdLong" value="long" accesskey="l" 
           onchange="_generate_pwd()">- <u>L</u>ong </label>
         <label class="radio-inline"><input type="radio" name="pwdFrmt" id="pwdVeryLng" value="verylong" accesskey="v" 
           onchange="_generate_pwd()">- <u>V</u>ery&nbsp;Long </label>
         </nobr>
-        &nbsp;&nbsp;
         <label class="checkbox-inline"><input id="pwdAlNum" type="checkbox" accesskey="a" 
           onchange="_generate_pwd()">- <u>A</u>lphanumeric </label>
       </div>
@@ -196,7 +207,7 @@ window._e = {cn: function(e, c, on) {
     </div>
   </div>
 
-  <div class="form-group">
+  <div class="form-group" style="margin-bottom: 5pt;">
     <div class="input-group">
       <label for="pwdOut" class="lab input-group-addon lab2">Result:</label>
       <input type="text" class="form-control" id="pwdOut" placeholder="Hashed password (generated)" readonly="readonly" 
@@ -207,8 +218,8 @@ window._e = {cn: function(e, c, on) {
     </div>
   </div>
 
-  <div class="form-group row text-center">
-    <div style="margin-top:-1em;">
+  <div class="form-group text-center">
+    <div>
       <button id="btnCpy" type="button" class="btn btn-primary" onclick="_copy_pwd();" disabled="on">
         <span class="key-img"></span> Copy</button>
       <a id="btnDrag" href="#" class="btn btn-primary" disabled="on" 
