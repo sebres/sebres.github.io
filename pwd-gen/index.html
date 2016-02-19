@@ -55,7 +55,7 @@ form {
   max-width: 800pt;
   border: 1px solid blue;
   border-radius: 1.5em;
-  box-shadow: 10px 10px 5px #999999;
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.5);
 }
 label, .no-sel {
   -moz-user-select:none;
@@ -65,18 +65,37 @@ label, .no-sel {
   -ms-user-select: none;
   user-select: none;
 }
+label.radio-inline.disabled {
+  opacity: .75; color: #777;
+}
 h4 {
   padding:5pt;
   border-radius: .75em;
 }
-.key-img {
-  background-image: url('data:image/gif;base64,R0lGODlhGAAYAKUrAMsBAcwAAM0HB84KCs4NDdAVFdEeHtMlJdQrK9QtLdQwMNU0NNg8PN1cXN9hYeFra+Nzc+N0dOeJiemRkeubm+uenu2lpe6qqu6trfC4uPG8vPLBwfLExPTLy/XOzvXR0fbU1PfZ2fje3vjg4Pnk5Pvr6/zv7/zw8P329v76+v7+/v///////////////////////////////////////////////////////////////////////////////////yH5BAEKAD8ALAAAAAAYABgAAAbBwJ+wsUgUj8bkcdEQCiWAqHRKpUqE1ewgYaj+GtnpAaMqjx5TYji6MJXfKot0sVgPRu9MJFNGA4prDnlSfCNRRmsVbxFSEWVdgGFkZRmEZQkAiGEScHp8ZQN/mFkHeHBwGId1VQmmp2UnB2yjYq6vI6uZuYe2FhMYGBUOoXO0AKWoa6pSyJ3Kory3z5ofbyEcbh/PgAlwjAAFxGuIBydvFc9TTFEMph3pUk1SBRIn7/AAT1MD4s9XTkSUCERCp4mQIAA7');
+h4 .img, .btn .img {
   background-size: 20pt 20pt; width: 20pt; height: 20pt; line-height: 20pt;
   background-repeat: no-repeat;
   display: inline-block;
 }
-h4 .key-img {float: left; margin-top: -2pt; margin-right: 5pt;}
-.btn .key-img {float: left; width: 14pt; height: 14pt; line-height: 14pt; background-size: 14pt 14pt; margin: 0px; margin-right: 5pt;}
+.key-img {
+  background-image: url('data:image/gif;base64,R0lGODlhGAAYAKUrAMsBAcwAAM0HB84KCs4NDdAVFdEeHtMlJdQrK9QtLdQwMNU0NNg8PN1cXN9hYeFra+Nzc+N0dOeJiemRkeubm+uenu2lpe6qqu6trfC4uPG8vPLBwfLExPTLy/XOzvXR0fbU1PfZ2fje3vjg4Pnk5Pvr6/zv7/zw8P329v76+v7+/v///////////////////////////////////////////////////////////////////////////////////yH5BAEKAD8ALAAAAAAYABgAAAbBwJ+wsUgUj8bkcdEQCiWAqHRKpUqE1ewgYaj+GtnpAaMqjx5TYji6MJXfKot0sVgPRu9MJFNGA4prDnlSfCNRRmsVbxFSEWVdgGFkZRmEZQkAiGEScHp8ZQN/mFkHeHBwGId1VQmmp2UnB2yjYq6vI6uZuYe2FhMYGBUOoXO0AKWoa6pSyJ3Kory3z5ofbyEcbh/PgAlwjAAFxGuIBydvFc9TTFEMph3pUk1SBRIn7/AAT1MD4s9XTkSUCERCp4mQIAA7');
+}
+.copy-img {
+  background-image: url('data:image/gif;base64,R0lGODlhIAAgAKUAAAAAAAICAgMDAwQEBAUFBQkJCRERERISEhMTEyYmJicnJygoKDExMTMzMzU1NTg4ODk5OTo6Ojw8PE5OTmFhYWJiYnp6en5+fn9/f4CAgIKCgpGRkZWVlZeXl6SkpKamprm5ucPDw9HR0dPT09XV1dnZ2dzc3OHh4eLi4uPj4+Xl5ebm5ujo6Orq6u7u7vLy8vj4+Pr6+vz8/P7+/v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEKAD8ALAAAAAAgACAAAAb+wN8PQCwahcikcjk0OonMaLI4oGCumIyiKJUSBzGaWDyjHbtLImXMNp/RSCKmPSYK4GnAnG4mCAsBTwBRcnxmQoJvU3p8M4hECBCSkgtcSoUyIiObIySPFXwHlnGMKE9NAIYQioUpp0WqTqRzMBsctxwdqLGyTXMvFlhXu3wOgr40rrKwdDMhBomlr0Q0ZYZjEUZ7dMTRACgzGdo0K9OpbokpNBjjykfMF8LCFi/r4y0MD/r6xB+4uCDYsCuSwVqbbk8gCDQywRBCJw0WGjnBh5iJEhgzspCIakGESRAkEGMAEmQDF/YGeXsoSN1AUubEeFOREg4sg9deomF2bQwdBSg7iXio1jPGAKBBASTQIE8YhaNIk3pTZHOqpSAAOw==');
+}
+.drag-img {
+  background-image: url('data:image/gif;base64,R0lGODlhIAAgAMYAAAAAAAAAAQEBAAEBAQICAQICAgMDAQMDAgMDAwQEAwQEBAUFAwUFBQYGBgcHBwkJCQ8PDxcXFx8fHyAgICEhISIiISsrKywsLDQ0NTk5OTs7Oz8/P0JCQlVVVWFhYGhoaHBwcH9/f4CAgISEhIaGhouLi4yMjI2NjJycnKWlpaqqqqurq62tra6urrm5ucbGxszMzNHR0dPT1NfX19jY2NnZ2dra2tvb293d3d/f3+Hh4eLi4ubm5urq6vLy8vPz8/X19ff39/n5+fv7+/z8/P7+/v///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEKAH8ALAAAAAAgACAAAAf+gH+Cg4SFhoeIiYqLjI2OhwcAAI+NCQGSApSGkpIIkg8KkZqEnAMCkkZAnpOUCgOcFiGSA0JFPgUHCI8KBZwFQUYsBgUtRracjQsEpw0JBSBFRicKHkbWM5IFjJw8RhSSJtHW4kYyBb2LnDjREgUIQ+TW1jHIiL4NO9EZAB/y/tYrBCDQdoiTJAdEog0x9s/fhlcFJU1AIQlCw4vRJB1C4CyGERqvXly8GAEAgUOvOFjTUaLHyIYYeKGUFCLeS38ZIBZMQICEzZtFJGi0J2nEz5E/6kUEgEDF0YYdlG4yKWDATXkupBriOKACgBRXc0gicFIRqqtGbjAAMICgWQAxF67aUMDW7SICCDTAINKwhohZZRtd4kR31qpXgR/NMnjK4ChCryQlYPW4suXLmAUFAgA7');
+}
+h4 .img {
+  float: left; margin-top: -2pt; margin-right: 5pt;
+}
+.btn .img {
+  float: left; width: 14pt; height: 14pt; line-height: 14pt; background-size: 14pt 14pt; margin: 0px; margin-right: 5pt;
+}
+.btn[disabled] .img {
+  opacity: .50;
+}
+.btn {min-width: 6em;}
 .lab {
   min-width: 6.5em;
 }
@@ -95,6 +114,8 @@ h4 .key-img {float: left; margin-top: -2pt; margin-right: 5pt;}
 .futter {
   font-size: 80%; margin-bottom: 5pt;
 }
+.hint {font-size: 87%; font-weight: bolder;}
+#dlgBtns {float:right;}
 div#wait {
   padding-top: 50vh; margin: 0px;
   position: absolute; left: 0px; top: 0px; width: 100%; height: 100%;
@@ -106,7 +127,7 @@ div#wait {
   text-align: center;
 }
 @media (max-width: 512px) {
-  .key-img {background-size: 16pt 16pt; width: 16pt; height: 16pt; line-height: 16pt;}
+  h4 .key-img {background-size: 16pt 16pt; width: 16pt; height: 16pt; line-height: 16pt;}
   h4 {font-size: 10pt; text-align: center;}
   form .input-group, form .input-group-addon, input.form-control {font-size: 9pt;}
   .form-group {margin-top:5pt; margin-bottom:5pt;}
@@ -115,6 +136,17 @@ div#wait {
 }
 @media (max-height: 420px) {
   .pwd-vis, .pwd-dom-only {float: inherit;}
+}
+@media (max-width: 400px) {
+  .btn {font-size: 9pt;}
+  @media (max-width: 360px) {
+    #otherBtns .btn {min-width: inherit;}
+    #otherBtns .text {display: none;}
+  }
+  #dlgBtns {float:inherit;}
+}
+@media (min-width: 512px) and (max-width: 768px) {
+  form {max-width: 512px}
 }
 @media (min-width: 768px) and (max-width: 800px) {
   form {max-width: 768px}
@@ -150,57 +182,58 @@ window._e = {cn: function(e, c, on) {
 <form role="form">
   <h4 class="bg-primary">
     <div>
-      <span class="key-img"></span>
-      <div><nobr>Persistent Password Generator</nobr> <nobr>[sebres-pwd-hasher]</nobr></div>
+      <span class="img key-img"></span>
+      <div><nobr>Persistent Password Generator</nobr></div>
     </div>
   </h4>
   <div class="form-inline">
     <div class="input-group col-sm-6">
-      <label for="pwdSite" class="lab input-group-addon">Web-Site:</label>
+      <label for="pwdSite" class="lab input-group-addon"><u>W</u>eb-Site:</label>
       <input type="text" class="form-control" id="pwdSite" placeholder="Address of the web-site" 
-        onchange="_generate_pwd()" oninput="_generate_on_input(this, event)" onfocus="_focus_input_elm(this)">
+        oninput="_generate_on_input(this, event)" onfocus="_focus_input_elm(this)">
       <div class="input-group-addon pwd-dom-only">
         <label class="checkbox-inline"><input id="pwdDTLD" type="checkbox" onchange="_generate_pwd()" checked>- domain.tld only</label>
       </div>
     </div>
 
     <div class="input-group">
-      <label for="pwdSecret" class="lab input-group-addon">Secret:</label>
+      <label for="pwdSecret" class="lab input-group-addon" accesskey="e">S<u>e</u>cret:</label>
       <input type="password" class="form-control" id="pwdSecret" placeholder="Secret word or phrase" 
-        onchange="_generate_pwd()" oninput="_generate_on_input(this, event)" onfocus="_focus_input_elm(this)">
+        oninput="_generate_on_input(this, event)" onfocus="_focus_input_elm(this)">
       <div class="input-group-addon pwd-vis">
         <label class="checkbox-inline"><input id="pwdSecretVis" type="checkbox" onchange="_switch_pwd_visibility(this);">- visible</label>
       </div>
     </div>
   </div>
 
-  <div class="form-group" style="margin-top:5pt;">
+  <div class="form-group" style="margin-top:5pt;" id="pwdFrmtGrp">
     <div class="input-group">
-      <label for="pwdFrmt" class="lab input-group-addon">Type:</label>
+      <label for="pwdNorm" class="lab input-group-addon">Type:</label>
       <div class="col-sm-9" style="padding-top:3px;">
         <nobr>
-        <label class="radio-inline"><input type="radio" name="pwdFrmt" id="pwdFrmt" value="normal" checked accesskey="n" 
+        <label class="control-label radio-inline"><input type="radio" name="pwdFrmt" id="pwdNorm" value="normal" checked pwd-min-length="20"
           onchange="_generate_pwd()">- <u>N</u>ormal </label>
-        <label class="radio-inline"><input type="radio" name="pwdFrmt" id="pwdShort" value="short" accesskey="s" 
+        <label class="control-label radio-inline"><input type="radio" name="pwdFrmt" id="pwdShort" value="short"
           onchange="_generate_pwd()">- <u>S</u>hort </label>
         </nobr>
         <nobr>
-        <label class="radio-inline"><input type="radio" name="pwdFrmt" id="pwdLong" value="long" accesskey="l" 
+        <label class="control-label radio-inline"><input type="radio" name="pwdFrmt" id="pwdLong" value="long" pwd-min-length="39"
           onchange="_generate_pwd()">- <u>L</u>ong </label>
-        <label class="radio-inline"><input type="radio" name="pwdFrmt" id="pwdVeryLng" value="verylong" accesskey="v" 
+        <label class="control-label radio-inline"><input type="radio" name="pwdFrmt" id="pwdVeryLng" value="verylong" pwd-min-length="79"
           onchange="_generate_pwd()">- <u>V</u>ery&nbsp;Long </label>
         </nobr>
-        <label class="checkbox-inline"><input id="pwdAlNum" type="checkbox" accesskey="a" 
+        <label class="checkbox-inline"><input id="pwdAlNum" type="checkbox"
           onchange="_generate_pwd()">- <u>A</u>lphanumeric </label>
+        <span style="float:right;"><label class="control-label hint" id="pwdFrmtHint"></label></span>
       </div>
     </div>
   </div>
 
   <div class="form-group">
     <div class="input-group">
-      <label for="pwdIn" class="lab input-group-addon">Password:</label>
+      <label for="pwdIn" class="lab input-group-addon" accesskey="p"><u>P</u>assword:</label>
       <input type="text" class="form-control" id="pwdIn" placeholder="Password" 
-        onchange="_generate_pwd()" oninput="_generate_on_input(this, event)" onfocus="_focus_input_elm(this)">
+        oninput="_generate_on_input(this, event)" onfocus="_focus_input_elm(this)">
       <div class="input-group-addon pwd-vis">
         <label class="checkbox-inline"><input id="pwdInVis" type="checkbox" onchange="_switch_pwd_visibility(this);">- visible</label>
       </div>
@@ -220,15 +253,24 @@ window._e = {cn: function(e, c, on) {
 
   <div class="form-group text-center">
     <div>
-      <button id="btnCpy" type="button" class="btn btn-primary" onclick="_copy_pwd();" disabled="on">
-        <span class="key-img"></span> Copy</button>
+      <span id="otherBtns"><nobr>
+      <button id="btnCpy" type="button" class="btn btn-primary" onclick="_copy_pwd();">
+        <span class="img copy-img"></span><span class="text"> <u>C</u>opy</span></button>
       <a id="btnDrag" href="#" class="btn btn-primary" disabled="on" 
         draggable="false" ondragstart="return _start_drag_pwd(event);" onclick="return false;">
-        <span class="key-img"></span> Drag</a>
+        <span class="img drag-img"></span><span class="text"> Drag</span></a>
+      </nobr></span>
+      <span id="dlgBtns" class="hidden"><nobr>
+        <span style="width:25pt;">&nbsp;</span>
+        <button id="btnOk" type="button" class="btn btn-primary" onclick="_ok();">
+          <span class="img key-img"></span> Ok</button>
+        <button id="btnCancel" type="button" class="btn btn-primary" onclick="_cancel();">
+          Cancel</button>
+      </nobr></span>
     </div>
   </div>
   <div class="futter text-right">
-    <nobr>[sebres-pwd-hasher]</nobr> :: <nobr>Copyright &copy; 2016</nobr> <nobr>Serg G. Brester (<a href="http://sebres.de">sebres</a>)</nobr>
+    <nobr>[sebres-pwd-hasher]</nobr> :: <nobr>Copyright &copy; 2016</nobr> <nobr>Serg G. Brester (<a id="link" href="http://sebres.de">sebres</a>)</nobr>
   </div>
 </form>
 <br>
@@ -776,7 +818,7 @@ window._e = {cn: function(e, c, on) {
 <script>
 
 window._generate_pwd_ev = null;
-function _generate_pwd(nowf) {
+function _generate_pwd(nowf, to) {
   if (window._loading) return;
   var pwdOut = _d.e('pwdOut'),
       pwdIn  = _d.e('pwdIn'),
@@ -786,7 +828,6 @@ function _generate_pwd(nowf) {
   _e.cn(pwdSecret.parentNode, 'has-warning', !pwdSecret.value.length);
   _e.cn(pwdIn.parentNode, 'has-error', !pwdIn.value.length);
   if (!window._generate_pwd_ev) {
-    btnCpy.disabled = true;
     btnDrag.setAttribute('disabled', 'on');
     btnDrag.draggable = false;
     _e.cn(pwdOut.parentNode, 'has-success', 0);
@@ -794,9 +835,9 @@ function _generate_pwd(nowf) {
   if (window._generate_pwd_ev) {
     clearTimeout(window._generate_pwd_ev); window._generate_pwd_ev = null;
   }
-  if (nowf == null) nowf = 1;
+  if (nowf == null) to = 50;
   if (!nowf) {
-    window._generate_pwd_ev = setTimeout('_generate_pwd(1)', 600);
+    window._generate_pwd_ev = setTimeout(function () {_generate_pwd(1);}, to ? to : 600);
     return;
   }
   var pwdSite = _d.e('pwdSite').value,
@@ -816,7 +857,6 @@ function _generate_pwd(nowf) {
       pwd = pwd.substr(0, 20);
     }
     _e.cn(pwdOut.parentNode, 'has-success', 1);
-    btnCpy.disabled = false;
     btnDrag.removeAttribute('disabled');
     btnDrag.draggable = true;
   }
@@ -825,9 +865,18 @@ function _generate_pwd(nowf) {
 
 function _focus_input_elm(elm) {
   elm._prev_value = elm.value;
-  if (!elm.oninput && !elm.onkeyup) {
-    elm.onkeyup = function() {return _generate_on_input(elm);}
+  if (!elm.oninput) {
+    if (!elm.onchange)
+      elm.onchange = function() {return _generate_on_input(elm);}
+    if (!elm.onkeyup)
+      elm.onkeyup = function() {return _generate_on_input(elm);}
   }
+}
+
+function _check_elm(n, v) {
+  var elm = _d.e(n);
+  elm.checked = (v != null ? v : !elm.checked);
+  _generate_pwd(0, 50);
 }
 
 function _generate_on_input(elm, event) {
@@ -841,20 +890,32 @@ function _generate_on_input(elm, event) {
 }
 
 function _switch_pwd_visibility(elm, chk) {
+  if (elm == null) {
+    elm = document.activeElement.id;
+    if (!elm || !_d.e(elm + 'Vis')) {
+      return;
+    }
+  }
   if (typeof elm === 'object') {
     chk = elm.checked;
     elm = _d.e(elm.id.replace(/Vis$/, ''));
   } else {
-    if (chk == null) chk = _d.e(elm + 'Vis').checked;
+    var celm = _d.e(elm + 'Vis');
+    if (chk == null) {
+      celm.checked = chk = !celm.checked;
+    } else 
+    if (chk === 'current') chk = celm.checked;
     elm = _d.e(elm);
   }
   elm.type = chk ? 'text' : 'password';
+  if (elm == document.activeElement)
+    elm.select();
 }
 
 function _copy_pwd(nowf) {
   _e.cn(_d.e('wait'), 'hidden', 0);
   var pwdOut = _d.e('pwdOut');
-  if (!pwdOut.value.length)
+  if (!pwdOut.value.length || window._generate_pwd_ev)
     _generate_pwd(1);
   var pwd = pwdOut.value;
   var success = true;
@@ -883,7 +944,7 @@ function _copy_pwd(nowf) {
       cpyElm.remove();
     }
   }
-  setTimeout("_e.cn(_d.e('wait'), 'hidden', 1);", 10);
+  setTimeout(function() {_e.cn(_d.e('wait'), 'hidden', 1);}, 10);
   if (!success)
     alert("Your browser doesn't allow copy to clipboard!");
 }
@@ -901,15 +962,111 @@ function _start_drag_pwd(event) {
 
 ;(function (){
   window._loading = false;
-  _generate_pwd(1);
-  _switch_pwd_visibility('pwdIn');
-  _switch_pwd_visibility('pwdOut');
-  _switch_pwd_visibility('pwdSecret');
-  with (_d.e('pwdIn')) {
-    focus();
-    select();
+  _switch_pwd_visibility('pwdIn', 'current');
+  _switch_pwd_visibility('pwdOut', 'current');
+  _switch_pwd_visibility('pwdSecret', 'current');
+  setTimeout(function () {_e.cn(_d.e('wait'), 'hidden', 1);}, 0);
+
+  var shcuts = [
+    {keyCode: 'N'.charCodeAt(0), altKey: 1, ctrlKey: 0, shiftKey: 0, exec: function() {_check_elm('pwdNorm', true);}},
+    {keyCode: 'S'.charCodeAt(0), altKey: 1, ctrlKey: 0, shiftKey: 0, exec: function() {_check_elm('pwdShort', true);}},
+    {keyCode: 'L'.charCodeAt(0), altKey: 1, ctrlKey: 0, shiftKey: 0, exec: function() {_check_elm('pwdLong', true);}},
+    {keyCode: 'V'.charCodeAt(0), altKey: 1, ctrlKey: 0, shiftKey: 0, exec: function() {_check_elm('pwdVeryLng', true);}},
+    {keyCode: 'A'.charCodeAt(0), altKey: 1, ctrlKey: 0, shiftKey: 0, exec: function() {_check_elm('pwdAlNum');}},
+    {keyCode: 'W'.charCodeAt(0), altKey: 1, ctrlKey: 0, shiftKey: 0, exec: function() {_d.e('pwdSite').focus();}},
+    {keyCode: 'E'.charCodeAt(0), altKey: 1, ctrlKey: 0, shiftKey: 0, exec: function() {_d.e('pwdSecret').focus();}},
+    {keyCode: 'P'.charCodeAt(0), altKey: 1, ctrlKey: 0, shiftKey: 0, exec: function() {_d.e('pwdIn').focus();}},
+    {keyCode: 'C'.charCodeAt(0), altKey: 1, ctrlKey: 0, shiftKey: 0, exec: _copy_pwd},
+    {keyCode: 'P'.charCodeAt(0), altKey: 1, ctrlKey: 1, shiftKey: 0, exec: _switch_pwd_visibility},
+  ]
+
+  if (window.arguments) {
+    var args = window.arguments[0];
+    if (args) {
+      if (args.url)
+        _d.e('pwdSite').value = args.url;
+      if (args.secret)
+        _d.e('pwdSecret').value = args.secret;
+      _e.cn(_d.e('dlgBtns'), 'hidden', 0);
+      if (args.maxlength != null && args.maxlength >= 0) {
+        var elm, elms, chk = true;
+        _d.e('pwdFrmtHint').innerHTML = '<span>Max-Length of password field: ' + args.maxlength + '</span>';
+        _e.cn(_d.e('pwdFrmtHint'), 'input-group-addon', 1);
+        elms = document.getElementsByName('pwdFrmt');
+        for (elm in elms) { elm = elms[elm];
+          var ml = elm.getAttribute('pwd-min-length');
+          ml = (ml != null && ml != '')?Number(ml):0;
+          if (args.maxlength < ml) {
+            elm.setAttribute('disabled', 'on');
+            _e.cn(elm.parentNode, 'disabled', 1);
+            if (elm.checked) {
+              elm.checked = chk = false;
+            }
+          }
+        }
+        if (!chk) for (elm in elms) if (elm = elms[elm] && !elm.disabled) {
+          elm.checked = true;
+          _e.cn(_d.e('pwdFrmtGrp'), 'has-warning', 1);
+          break;
+        }
+      }
+      window._cancel = function() {
+        window.close();
+      }
+      window._ok = function() {
+        var pwdOut = _d.e('pwdOut');
+        if (!pwdOut.value.length || window._generate_pwd_ev) {
+          _generate_pwd(1);
+        };
+        args.ret = pwdOut.value;
+        args.secret = _d.e('pwdSecret').value;
+        window.close();
+      }
+      shcuts = shcuts.concat([
+        {keyCode: 27, altKey: 0, ctrlKey: 0, shiftKey: 0, exec: _cancel},
+        {keyCode: 13, altKey: 0, ctrlKey: 0, shiftKey: 0, exec: _ok},
+        {keyCode: 13, altKey: 0, ctrlKey: 1, shiftKey: 0, exec: _ok},
+      ]);
+      _d.e('link').target = "_blank";
+      _d.e('link').onclick = function() {(args.opener ? args.opener : window.parent).open(_d.e('link').href, '_blank'); return false;}
+    }
+  };
+
+  (function(shcutsdef) {
+    var sc, p;
+    shcuts = {};
+    for (sc in shcutsdef) {
+      sc = shcutsdef[sc];
+      if (!(p = shcuts[sc.keyCode]))
+        shcuts[sc.keyCode] = [sc];
+      else
+        shcuts[sc.keyCode] = p.concat([sc]);
+    }
+  })(shcuts);
+
+  window.onkeydown = function(ev) {
+    var sc, scs;
+    scs = shcuts[ev.keyCode];
+    if (!scs)
+      return true;
+    for (sc in scs) {
+      sc = scs[sc];
+      if (
+        (sc.altKey != ev.altKey) || (sc.ctrlKey != ev.ctrlKey) || (sc.shiftKey != ev.shiftKey)
+      ) continue;
+      sc.exec();
+      if (ev.preventDefault) ev.preventDefault();
+      if (ev.stopPropagation) ev.stopPropagation();
+      if (ev.cancelBubble !== null) ev.cancelBubble = true;
+      return false;
+    }
   }
-  setTimeout("_e.cn(_d.e('wait'), 'hidden', 1);", 0);
+
+
+  _generate_pwd(1);
+  var elm = _d.e('pwdIn');
+  elm.focus();
+  elm.select();
 })();
 </script>
 
