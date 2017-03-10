@@ -827,17 +827,22 @@ function _generate_pwd(nowf, to) {
       btnDrag = _d.e('btnDrag');
   _e.cn(pwdSecret.parentNode, 'has-warning', !pwdSecret.value.length);
   _e.cn(pwdIn.parentNode, 'has-error', !pwdIn.value.length);
-  if (!window._generate_pwd_ev) {
+  if (!pwdIn.value.length) {
+    pwdOut.value = '';
+    btnCpy.setAttribute('disabled', 'on');
+  } else {
+    btnCpy.removeAttribute('disabled');
+  }
+  if (!_generate_pwd_ev) {
     btnDrag.setAttribute('disabled', 'on');
     btnDrag.draggable = false;
     _e.cn(pwdOut.parentNode, 'has-success', 0);
-  }
-  if (window._generate_pwd_ev) {
-    clearTimeout(window._generate_pwd_ev); window._generate_pwd_ev = null;
+  } else {
+    clearTimeout(_generate_pwd_ev); _generate_pwd_ev = null;
   }
   if (nowf == null) to = 50;
   if (!nowf) {
-    window._generate_pwd_ev = setTimeout(function () {_generate_pwd(1);}, to ? to : 600);
+    _generate_pwd_ev = setTimeout(function () {_generate_pwd(1);}, to ? to : 600);
     return;
   }
   var pwdSite = _d.e('pwdSite').value,
@@ -915,9 +920,13 @@ function _switch_pwd_visibility(elm, chk) {
 function _copy_pwd(nowf) {
   _e.cn(_d.e('wait'), 'hidden', 0);
   var pwdOut = _d.e('pwdOut');
-  if (!pwdOut.value.length || window._generate_pwd_ev)
+  if (!pwdOut.value.length || _generate_pwd_ev)
     _generate_pwd(1);
   var pwd = pwdOut.value;
+  if (pwd == '') {
+    _e.cn(_d.e('wait'), 'hidden', 1);
+    return;
+  }
   var success = true;
   if (window.clipboardData) {
     window.clipboardData.setData ("Text", pwd);
