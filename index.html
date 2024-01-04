@@ -66,6 +66,7 @@ h4 {
   border-radius: .75em;
 }
 h4 img {float: left; margin-right: 5pt; margin-top: -2px; max-height: 18pt;}
+.entry {height:2em;}
 .entry img {float: left; margin-right: 5pt;}
 @media (max-width: 480px) {
   h4, .entry {font-size: 10pt; text-align: left;}
@@ -91,9 +92,14 @@ h4 img {float: left; margin-right: 5pt; margin-top: -2px; max-height: 18pt;}
   </h4>
   <br>
   <div class="entry">
-      <a href="/pwd-gen/"><img src="data:image/gif;base64,R0lGODlhGAAYAKUrAMsBAcwAAM0HB84KCs4NDdAVFdEeHtMlJdQrK9QtLdQwMNU0NNg8PN1cXN9hYeFra+Nzc+N0dOeJiemRkeubm+uenu2lpe6qqu6trfC4uPG8vPLBwfLExPTLy/XOzvXR0fbU1PfZ2fje3vjg4Pnk5Pvr6/zv7/zw8P329v76+v7+/v///////////////////////////////////////////////////////////////////////////////////yH5BAEKAD8ALAAAAAAYABgAAAbBwJ+wsUgUj8bkcdEQCiWAqHRKpUqE1ewgYaj+GtnpAaMqjx5TYji6MJXfKot0sVgPRu9MJFNGA4prDnlSfCNRRmsVbxFSEWVdgGFkZRmEZQkAiGEScHp8ZQN/mFkHeHBwGId1VQmmp2UnB2yjYq6vI6uZuYe2FhMYGBUOoXO0AKWoa6pSyJ3Kory3z5ofbyEcbh/PgAlwjAAFxGuIBydvFc9TTFEMph3pUk1SBRIn7/AAT1MD4s9XTkSUCERCp4mQIAA7"></a>
-      <a href="/pwd-gen/"><nobr>Persistent Password Generator</nobr> :: <nobr>[sebres-pwd-hasher]</nobr></a>
+      <a href="pwd-gen/"><img src="data:image/gif;base64,R0lGODlhGAAYAKUrAMsBAcwAAM0HB84KCs4NDdAVFdEeHtMlJdQrK9QtLdQwMNU0NNg8PN1cXN9hYeFra+Nzc+N0dOeJiemRkeubm+uenu2lpe6qqu6trfC4uPG8vPLBwfLExPTLy/XOzvXR0fbU1PfZ2fje3vjg4Pnk5Pvr6/zv7/zw8P329v76+v7+/v///////////////////////////////////////////////////////////////////////////////////yH5BAEKAD8ALAAAAAAYABgAAAbBwJ+wsUgUj8bkcdEQCiWAqHRKpUqE1ewgYaj+GtnpAaMqjx5TYji6MJXfKot0sVgPRu9MJFNGA4prDnlSfCNRRmsVbxFSEWVdgGFkZRmEZQkAiGEScHp8ZQN/mFkHeHBwGId1VQmmp2UnB2yjYq6vI6uZuYe2FhMYGBUOoXO0AKWoa6pSyJ3Kory3z5ofbyEcbh/PgAlwjAAFxGuIBydvFc9TTFEMph3pUk1SBRIn7/AAT1MD4s9XTkSUCERCp4mQIAA7"></a>
+      <a href="pwd-gen/"><nobr>Persistent Password Generator</nobr> :: <nobr>[sebres-pwd-hasher]</nobr></a>
   </div>
+  <div class="entry">
+      <a href="bip39/"><img style="height:1.8em; margin-left:6px; margin-right:7px" src="data:image/png;base64,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"></a>
+      <a href="bip39/"><nobr>Mnemonic Code Converter</nobr> :: <nobr>[BIP39-sebres-mod]</nobr></a>
+  </div>
+
   <br>
 
   <div class="futter text-right">
