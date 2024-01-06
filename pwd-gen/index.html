@@ -1029,6 +1029,7 @@ function _start_drag_pwd(event) {
         };
         args.ret = pwdOut.value;
         args.secret = _d.e('pwdSecret').value;
+        if (args.onSelect) args.onSelect();
         window.close();
       }
       shcuts = shcuts.concat([
